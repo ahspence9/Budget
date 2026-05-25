@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Budget App</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Prevent aggressive caching during development -->
+  <meta http-equiv="Cache-Control" content="no-cache">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0077cc">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<div id="diary-preview" class="diary-preview hidden"></div>
+<body>
+
+  <div id="offline-indicator" class="offline hidden">
+  Offline mode
+  </div>
+  <div id="floating-find" class="floating-find">
+  <input id="projection-find-input" placeholder="Find (text or date)">
+  <button id="projection-find-clear" title="Clear search">✕</button>
+  <button id="projection-find-prev">◀</button>
+  <button id="projection-find-next">▶</button>
+  <span id="find-counter">0/0</span>
+</div>
+
+<header id="app-top" class="app-header">
+  <h1>Home Budget App.</h1>
+</header>
+
+<section class="config">
+  <label>Start date:
+    <input type="date" id="start-date">
+  </label>
+  <label>Opening balance:
+    <input type="number" id="opening-balance" step="0.01">
+  </label>
+  
+  <button id="save-config">Save</button>
+  <span class="spacer"></span>
+  <div id="backup-status">
+  Last Transactons Backup: Never
+</div>
+   
+  
+</section>
+  
+   
+</section>
+  <section id="import-export">
+  <div class="action-group">
+  
+    <span class="group-label">Views</span>
+    <div class="action-button-row">
+      
+    <button id="salary-popup-btn">Salary -1 day <br>balances⚖️</button>
+    <button id="negative-popup-btn">📈 Negative balances</button>
+    <button id="diary-popup-btn">📚Diary</button>
+    <button id="upcoming-diary-btn">🗓️ Next 14 Days</button>
+    <button id="summary-btn">Summary Report</button>  
+      <button id="savings-summary-btn">💰 Savings Pots</button>
+  </div>
+  </div>
+    
+  <div class="action-group">
+    <span class="group-label">Tools</span>
+    <div class="action-button-row">
+    <button id="help">🆗 Help</button>
+    <button id="TopofApp">🔁 Transactions ⬇️</button>
+    <button id="menucategory"> 
+        Maintenance Menu ⬇️
+     </button>
+    <button id="whatif-btn">❓ What If ❓</button>
+      <!-- <button id="clear-whatif-btn">❌ Clear What If</button> -->
+    
+    </div>
+  </div>
+<div id="savings-summary-popup" class="modal hidden">
+  <div class="modal-content">
+
+    <h3>Savings Pots Summary</h3>
+
+    <table style="width:100%;">
+      <thead>
+        <tr>
+  <th>Pot</th>
+  <th>Opening</th>
+  <th>Contributions</th>
+  <th>Current</th>
+</tr>
+      </thead>
+
+      <tbody id="savings-summary-body"></tbody>
+
+      <tfoot>
+        <tr>
+          <th>Total</th>
+          <th id="savings-summary-total"></th>
+        </tr>
+      </tfoot>
+    </table>
+<button id="save-opening-balances">
+  Save Opening Balances
+</button>
+    <button id="close-savings-summary">
+      Close
+    </button>
+
+  </div>
+</div>
+
+<div id="summary-popup" class="modal hidden">
+  <div class="modal-content summary-theme-12">
+    <div class="summary-toggle">
+  <button id="summary-12-btn" class="active">12 Months</button>
+<button id="summary-24-btn">24 Months</button>
+</div>
+    <h3 id="summary-title">Projection Summary (24 months)</h3>
+    
+
+    <table style="width:100%;">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Income</th>
+          <th>Expense</th>
+          <th>Income / Month</th>
+<th>Expense / Month</th>
+        </tr>
+      </thead>
+      <tbody id="summary-table-body"></tbody>
+    </table>
+
+    <button id="summary-close">Close</button>
+  </div>
+</div>
+  <div id="whatif-popup" class="modal hidden">
+  <div class="modal-content">
+
+    <h3>What If Saving</h3>
+
+    <p class="modal-desc">
+      Estimate how regular monthly savings will affect your projected balance.
+    </p>
+
+    
+
+    <!-- Start date -->
+    <div class="form-group">
+      <label for="whatif-date">Start date</label>
+      <input id="whatif-date" type="date">
+      <div class="field-help">
+        When the monthly savings should begin.
+      </div>
+    </div>
+
+    
+    <div id="whatif-info" class="field-help"></div>
+
+    <!-- Confirm / Cancel -->
+    <div class="button-row confirm-row">
+      <button id="whatif-confirm">OK</button>
+      <button id="whatif-cancel">Cancel</button>
+    </div>
+
+  </div>
+</div>
+  <div id="savings-popup" class="popup hidden">
+  <div class="popup-content">
+    <h3>Savings Projection (24 months)</h3>
+
+    <div id="savings-popup-body"></div>
+
+    <button id="savings-popup-close">Close</button>
+  </div>
+</div>
+  
+
+
+In the <b>24 Month Projection table </b>you can <b>Nudge</b> Expenses forward by <b>1 day</b> at  a time if they fall at <b>Weekends</b> or <b>Bank Holidays</b>, or if it hasn't yet been debited.
+<hr style="border: none; height: 8px; background-color: #000000; margin: 15px 0;">
+    
+<div id="projection-summary" class="projection-summary"></div>
+    
+    <h2 style="background-color: #008000; color: #ffffff; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+  <span>📅 24-Month Projection</span>
+  <span style="font-size: 0.8em; font-weight: normal;">
+    transactions are projected 24 months from start date
+  </span>
+</h2>
+
+
+<table id="projection-table">
+  <thead>
+    <tr>
+      <th>Date</th><th>Description</th><th>Income</th><th>Expense</th><th>Balance</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+<div id="help-modal" class="modal hidden">
+  <div class="modal-content">
+    <button id="help-close" class="modal-close">Close</button>
+    <iframe
+      src="doc.html"
+      title="Help"
+      class="modal-frame">
+    </iframe>
+  </div>
+</div>
+
+
+
+  
+<h2 id="tohere" style="background-color:  #0b5ed7; color: #ffffff; padding: 10px;">
+  🔁 Transactions
+</h2>
+
+<div class="frequency-legend">
+  <div id="tx-filter-badge" class="filter-badge hidden"></div>
+  <span class="tx-filter" data-filter="all">All</span>
+  <span class="tx-filter" data-filter="monthly">🔁 Monthly</span>
+  <span class="tx-filter" data-filter="4-weekly">📆 4-weekly</span>
+  <span class="tx-filter" data-filter="targeted">🎯 Targeted</span>
+  <span class="tx-filter" data-filter="irregular">⚡️ Irregular</span>
+  <span class="legend-note">
+    You can SORT by – Date, Description or Category columns
+  </span>
+</div>
+    
+<input
+  type="file"
+  id="import-transactions"
+  accept=".json"
+  style="display:none"
+/>
+
+
+
+
+
+<table id="transaction-table">
+  <thead>
+    <tr>
+      <th id="date-sort-header" style="cursor:pointer">
+        Date <span id="date-sort-indicator">▲</span>
+      </th>
+      <th id="description-sort-header" style="cursor:pointer">
+  Description <span id="description-sort-indicator"></span>
+</th>
+      <th>Type</th>
+      <th>Amount</th>
+      <th id="category-sort-header" style="cursor:pointer">
+        Category <span id="category-sort-indicator"></span>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+
+<section id="manage-section">
+    
+    <hr id="jump-here">
+<h3 class="section-label"> Maintenance Menu</h3>
+    
+<section id="edit-category-section">
+<h3>Add and Edit Categories</h3>
+  <input id="new-category" placeholder="New category">
+  <button id="add-category">Add Category</button> 
+  <span class="spacer"></span>
+  <select id="edit-category-select"></select>
+  <input type="text" id="edit-category-name" placeholder="New category name">
+  <button id="rename-category">Edit Category</button>
+  
+  
+</section>
+<h3>
+  Add Transactions
+  <small class="helper-text">(Editing is done inline)</small>
+</h3>
+<section class="transactions" id="transaction-form">
+  <input id="tx-desc" placeholder="Description">
+  <input id="tx-amount" type="number" step="0.01" placeholder="Amount">
+  <select id="tx-type">
+    <option value="expense">Expense</option>
+    <option value="income">Income</option>
+  </select>
+  <select id="tx-frequency">
+    <option value="irregular">Irregular</option>
+    <option value="monthly">Monthly</option>
+    <option value="4-weekly">4-weekly</option>
+  </select>
+  <input id="tx-date" type="date" placeholder="Start date">
+  <input type="date" id="tx-end-date" placeholder="End date (optional)">
+  <select id="tx-category"></select>
+  <button id="add-transaction">Add Transaction</button>
+
+  <div class="import-box">
+    <label>
+      Import transactions - CSV
+      <input type="file" id="csv-import" accept=".csv">
+    </label>
+    <button id="import-btn">Import Transactions from CSV</button> 
+    <button id="export-projection-btn">Export 24-Month Projection CSV</button>
+ 
+    
+    <button id="import-transactions-btn">Import Transactions (Restore Backup)</button>
+    <button id="export-transactions">Export Transactions (Backup)</button>
+    
+  </div>
+  
+</section>
+  
+
+</section>  
+  
+    
+<div id="negative-popup" class="modal hidden">
+  <div class="modal-content">
+    <h3>Negative balances (24 months)</h3>
+
+    <table>
+      <tbody id="negative-popup-body"></tbody>
+    </table>
+
+    <button id="negative-popup-close">Close</button>
+  </div>
+</div>
+    
+<div id="salary-popup" class="modal hidden">
+  <div class="modal-content">
+    <h3>Balances the day before salary</h3>
+
+<table>
+  <tbody id="salary-popup-body"></tbody>
+</table>
+
+    <button id="salary-popup-close">Close</button>
+  </div>
+</div>
+
+ 
+</section>
+
+<!-- ================= TX END DATE POPUP ================= -->
+<div id="tx-end-popup" class="popup hidden">
+  <div class="popup-content">
+    <h3>Transaction end</h3>
+    <p id="tx-end-popup-text"></p>
+    <button id="tx-end-popup-close">Close</button>
+  </div>
+</div>
+
+
+<div id="upcoming-diary-popup" class="modal hidden">
+  <div class="modal-content">
+    <h3>Upcoming diary entries (next 14 days)</h3>
+    <div id="upcoming-diary-list"></div>
+    <button id="close-upcoming-diary">Close</button>
+  </div>
+</div>
+
+  <div id="summary-view" style="display:none; margin-top:20px;">
+  <table border="1" style="width:100%; border-collapse: collapse;">
+<thead>
+  <tr>
+    <th>Category</th>
+    <th>Description</th>
+    <th>Income (24m)</th>
+    <th>Expense (24m)</th>
+    <th>Income / mth</th>
+    <th>Expense / mth</th>
+  </tr>
+</thead>
+    <tbody id="summary-table-body"></tbody>
+  </table>
+</div>
+<div id="toast" class="toast hidden"></div>
+
+<button id="back-to-top" class="floating-top">📅24 Month Projection ⬆️</button>
+  
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./service-worker.js");
+}
+</script>
+<div id="update-banner" class="hidden">
+  <button id="refresh-app-btn">Refresh</button>
+</div>
+<div id="app-version" class="app-version"></div>
+<script src="app.js"></script>
+<div id="bottom-spacer"></div>
+</body>
+</html>

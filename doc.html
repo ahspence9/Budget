@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home Budget Tracker – Help</title>
+
+<base target="_self">
+
+<style>
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  padding: 20px;
+  font-size: 16px;
+  max-width: 900px;
+  margin: auto;
+  color: #222;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin-top: 2em;
+}
+
+.section {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+.index {
+  background: #f8f9fa;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.index h3 {
+  margin-top: 10px;
+}
+
+.index a {
+  display: block;
+  margin: 4px 0;
+  text-decoration: none;
+  color: #0b5ed7;
+}
+
+.index a:hover {
+  text-decoration: underline;
+}
+
+.note {
+  background: #f1f3f5;
+  padding: 10px 14px;
+  border-left: 4px solid #adb5bd;
+  margin: 16px 0;
+}
+
+.back-to-top {
+  display: inline-block;
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body id="top">
+
+<h1>Help</h1>
+
+<hr>
+
+<div class="index">
+
+<h3>Getting Started</h3>
+<a href="#overview">Overview</a>
+<a href="#quickstart">Initial Set Up</a>
+<a href="#setup">Set up your budget</a>
+
+<h3>Everyday Use</h3>
+<a href="#addtr">Add transactions</a>
+<a href="#edit">Edit transactions</a>
+<a href="#delete">Delete transactions</a>
+<a href="#filter">Filter & find</a>
+
+<h3>Tools & Views</h3>
+<a href="#salary-1">Salary -1</a>
+<a href="#negative">Negative balances</a>
+<a href="#summary">Summary Report</a>
+<a href="#whatif">What If</a>
+<a href="#diary">Diary</a>
+<a href="#14days">Next 14 Days</a>
+
+<h3>Advanced</h3>
+<a href="#json">Export/Import transactions</a>
+<a href="#csv">Import CSV</a>
+<a href="#categories">Categories</a>
+<a href="#offline">Offline mode</a>
+
+<h3>FAQ</h3>
+<a href="#faq">Frequently Asked Questions</a>
+</div>
+
+<hr>
+<section id="json" class="section">
+<h2>Import/Export transaction</h2>
+<p>Use Export and Import JSON to backup and restore your transactions</p>
+<ul>
+<li><b>Export Transactions - JSON</b> Saves your transactions to a file (.JSON)</li>
+<li><b>Import Transactions - JSON</b> Imports your transactions from a file (.JSON)</li>
+<li>Once you have added transactions, or when you make changes, you should <b>backup</b></li>
+<br>
+<li>To <b>rebuild</b> your app, delete your browser <b>cache</b>, open the app in your browser (https://ahspence53.github.io/Budget/)</li>
+set the <b>Start date</b> and <b>Opening balance</b>, then from the <b>Add and Edit Categories & Transactions menu</b>
+then select <b>Import Transactions - JSON</b></li>
+</ul>
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="overview" class="section">
+<h2>Overview</h2>
+
+<p>This app is designed to help you plan ahead, not just track spending.</p>
+
+<ul>
+<li><b>Day-before-payday focus</b> — ensures your balance stays safe before income arrives</li>
+<li><b>Forward projection</b> — see up to 24 months ahead</li>
+<li><b>What If testing</b> — safely explore savings or spending changes</li>
+<li><b>Local data only</b> — nothing is stored online</li>
+</ul>
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="quickstart" class="section">
+<h2>Initial set up</h2>
+
+
+<li>Set your <b>start date </b>and <b>opening balance</b></li>
+<li>Create your <b>categories</b> (you must have categories to add a transaction)</li>
+<li>Add your regular <b>income</b> salary/pension)</li>
+<li>Add your regular <b>expenses</b></li>
+<li>The <b>projection</b> updates immediately.</li>
+<div class="note">
+If your bank shows £150 and you have £50 of transactions on that day, your opening balance should be £200.
+</div>
+
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="summary" class="section">
+<h2>Summary Report</h2>
+
+<p>Shows total income and expenses over 12 or 24 months.</p>
+
+<ul>
+<li>Grouped by category</li>
+<li>Frequency-adjusted (monthly vs 4-weekly)</li>
+<li>Includes totals and averages</li>
+</ul>
+
+<div class="note">
+Use this to understand how much is available for savings.
+</div>
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="whatif" class="section">
+<h2>What If</h2>
+
+<p>Tests how much you can safely save each month.</p>
+
+<ol>
+<li>Click <b>What If</b></li>
+<li>Select a start date</li>
+<li>Click OK</li>
+</ol>
+
+<p>The app calculates a safe monthly saving amount using a buffer.</p>
+
+<div class="note">
+If balances go negative, your plan is not safe.
+</div>
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="salary-1" class="section">
+<h2>Salary -1</h2>
+
+<p>Shows your balance the day before income.</p>
+
+<div class="note">
+This is your most important safety check.
+</div>
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="negative" class="section">
+<h2>Negative balances</h2>
+
+<p>Lists all future dates where your balance drops below zero.</p>
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="addtr" class="section">
+<h2>Add transactions</h2>
+
+<p>Transaction types:</p>
+
+<ul>
+<li><b>Monthly 🔁</b></li>
+<li><b>4-Weekly 📅</b></li>
+<li><b>Targeted 🎯</b> (with end date)</li>
+<li><b>Irregular ⚡️</b> (one-off)</li>
+</ul>
+
+<p>All changes update the projection instantly.</p>
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="edit" class="section">
+<h2>Edit transactions</h2>
+<p>Use the Transactions screen to edit and save changes.</p>
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="delete" class="section">
+<h2>Delete transactions</h2>
+<p>Delete removes a transaction permanently.</p>
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="filter" class="section">
+<h2>Filter & Find</h2>
+
+<p>Search for any text or date using the Find box.<br>
+For date use format <b>YYYY-MM-DD</b></p>
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="diary" class="section">
+<h2>Diary</h2>
+
+<ul>
+<li>Add notes to any date</li>
+<li>Future reminders</li>
+<li>14-day preview</li>
+</ul>
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="14days" class="section">
+<h2>Next 14 Days</h2>
+<p>Shows upcoming diary entries.</p>
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="categories" class="section">
+<h2>Categories</h2>
+<p>Add or edit categories via the edit screen.</p>
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="csv" class="section">
+<h2>Import CSV</h2>
+
+<ul>
+<li>Date (yyyy-mm-dd)</li>
+<li>Amount</li>
+<li>Income/Expense</li>
+<li>Category</li>
+<li>Description</li>
+<li>Frequency</li>
+</ul>
+
+<div class="note">
+Headers must match exactly.
+</div>
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+
+<section id="offline" class="section">
+<h2>Offline mode</h2>
+
+<p>The app works fully offline using browser storage.</p>
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+
+<section id="faq" class="section">
+<h2>FAQ's</h2>
+
+<p><b>Why does my balance go negative?</b><br>
+Expenses exceed available funds before your next income.</p>
+
+<p><b>Why do transactions disappear?</b><br>
+The app is forward-looking — past transactions are removed when you move the start date.</p>
+
+<p><b>Why is What If lower than expected?</b><br>
+The buffer ensures your balance never drops below a safe level.</p>
+
+<p><b>How do I ensure I don't lose my data?</b><br>
+You should regularly BACKUP, using <b>Export Transactions - JSON</b><br>
+especially when you make any changes to your transactions.<br>
+Also, in Diary, click <b>Backup</b> to save the .JSON file to your local file system.
+
+<p><b>How do I 'Start' over?</b><br>
+Simply delete your browser cache.<br>
+Type the app name into your browser - https://ahspence53.github.io/Budget/<br>
+Enter <b>Start Date</b> and <b>Opening Balance</b><br>
+then <b>Import Transactions - JSON</b> and select your .JSON backup file.<br>
+Finally <b>Restore</b> any Diary backup you have.<br></p>
+
+<p><b>Do my Categories get re-created when I restore from backup?</b><br>
+<b>Yes</b> Categories are saved when you do a backup (Export Transactions - JSON)<br>
+They will be re-created when the data is loaded into the App from the JSON file.<br></p>
+  
+
+<a href="#top" class="back-to-top">↑ Back to top</a>
+</section>
+</section>
+
+</body>
+</html>

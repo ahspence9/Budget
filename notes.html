@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diary Notes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="app-header">
+  <h1>Diary Notes</h1>
+</header>
+
+<section style="max-width: 1100px; margin: 1rem auto;">
+
+  <label>
+    Date:
+    <input type="date" id="note-date">
+  </label>
+
+  <br><br>
+
+<textarea
+  id="note-text"
+  rows="10"
+  style="width:100%; font-size:1.15rem; line-height:1.5; background-color: #ffffcc;"
+></textarea>
+
+  <br><br>
+
+  <button id="save-note">Save</button>
+  <button id="clear-note">Clear</button>
+  <button id="delete-note">Delete</button>
+  <button id="export-txt">Export TXT</button>
+<button id="export-csv">Export CSV</button>
+  
+  <button id="backup-notes">Backup</button>
+  
+<button id="restore-notes-btn">Restore Backup</button>
+<input type="file" id="restore-notes" accept=".json" style="display:none;">
+  
+  <br><br>
+  
+  <button id="back-btn">Go Back</button>
+
+<script>
+  document.getElementById("back-btn").onclick = e => {
+    e.preventDefault();
+
+    const iso = localStorage.getItem("diaryReturnIso");
+
+    if (iso) {
+      // Clear it so it doesn't affect future navigation
+      localStorage.removeItem("diaryReturnIso");
+
+      // Jump back to the exact row
+      window.location.href = `index.html#jump=${iso}`;
+    } else {
+      // Normal behaviour (e.g. came from projection icon)
+      history.back();
+    }
+  };
+</script>
+
+  <input
+  type="text"
+  id="search-notes"
+  placeholder="Search notes..."
+>
+
+  <h3>Saved Notes</h3>
+  <ul id="notes-list"></ul>
+
+</section>
+
+<script src="notes.js"></script>
+</body>
+</html>
